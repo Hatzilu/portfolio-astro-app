@@ -1,4 +1,6 @@
 ---
+import Header from '../components/Header.astro';
+import AnimatedBlob from '../components/AnimatedBlob/AnimatedBlob.astro';
 ---
 
 <html lang="en">
@@ -10,6 +12,11 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div class="flex min-h-screen items-center justify-center bg-gray-50 px-16">
+			<div class="relative w-full max-w-lg">
+				<AnimatedBlob />
+				<Header />
+			</div>
+		</div>
 	</body>
 </html>
