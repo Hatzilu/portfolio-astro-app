@@ -1,0 +1,15 @@
+---
+import type { Repository } from '../types/github';
+import Card from './Card.astro';
+const res = await fetch(`https://api.github.com/users/${import.meta.env.GITHUB_USERNAME}/repos`);
+
+const data: Repository[] = await res.json();
+console.log(data[0]);
+---
+
+<div
+	class="z-10 flex w-screen flex-col justify-self-start bg-white p-10 font-serif text-xl font-bold text-zinc-900"
+>
+	<h2>Here are some projects i made</h2>
+	{data.map((project) => <Card>{project.name}</Card>)}
+</div>

@@ -1,5 +1,6 @@
 ---
-import Header from '../components/Header.astro';
+import Card from '../components/Card.astro';
+import ProjectsShowcase from '../components/ProjectsShowcase.astro';
 import AnimatedBlob from '../components/AnimatedBlob/AnimatedBlob.astro';
 ---
 
@@ -15,7 +16,12 @@ import AnimatedBlob from '../components/AnimatedBlob/AnimatedBlob.astro';
 		<div class="flex min-h-screen items-center justify-center bg-gray-50 px-16">
 			<div class="relative w-full max-w-lg">
 				<AnimatedBlob />
-				<Header />
+				<div class="flex flex-col gap-5">
+					<Card>
+						<h1>Hi, i'm {import.meta.env.AUTHOR_FIRST_NAME}.</h1><h1>I like to build things.</h1>
+					</Card>
+					<!-- <ProjectsShowcase /> -->
+				</div>
 			</div>
 		</div>
 	</body>
