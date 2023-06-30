@@ -49,7 +49,7 @@ const Carousel = ({ items }: Props) => {
 						href={repo.html_url}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="h-full w-full gap-3 rounded-lg bg-violet-50 p-6 px-14"
+						className="flex h-full w-full flex-col gap-2 rounded-lg bg-violet-50 p-6 px-14"
 						key={repo.id}
 					>
 						<div className="flex items-start justify-between">
