@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Repository } from '../../types/github';
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill, BsEye, BsStar } from 'react-icons/bs';
 
@@ -11,13 +11,13 @@ const Carousel = ({ items }: Props) => {
 
 	const nextSlide = () =>
 		setSlide((s) => {
-			if (s + 1 > items.length) return s;
+			if (s + 1 >= items.length) return 0;
 			return s + 1;
 		});
 
 	const prevSlide = () =>
 		setSlide((s) => {
-			if (s - 1 < 0) return s;
+			if (s - 1 < 0) return items.length - 1;
 			return s - 1;
 		});
 
@@ -43,12 +43,12 @@ const Carousel = ({ items }: Props) => {
 						<p className="text-sm font-light">{project.description}</p>
 						<ul className="flex list-none flex-col gap-2">
 							<li className="flex items-center gap-2">
-								<BsStar size="1rem" />
+								<BsStar size="16px" />
 								<p className="text-sm font-light">Stars:</p>
 								<p className="text-sm">{project.stargazers_count}</p>
 							</li>
 							<li className="flex items-center gap-2">
-								<BsEye size="1rem" />
+								<BsEye size="16px" />
 								<p className="text-sm font-light">Watches:</p>
 								<p className="text-sm">{project.watchers_count}</p>
 							</li>
@@ -60,15 +60,17 @@ const Carousel = ({ items }: Props) => {
 				onClick={nextSlide}
 				className="absolute right-4 h-8 w-8 rounded-full text-black shadow-md drop-shadow-sm hover:cursor-pointer"
 			/>
-			{items.map((_, index) => (
-				<button
-					onClick={() => setSlide(index)}
-					className={`absolute bottom-4 mx-1 my-0 flex h-2 w-2 rounded-full ${
-						slide === index ? `bg-gray-800` : `bg-white`
-					} shadow-sm outline-none drop-shadow-sm`}
-					key={_.id}
-				/>
-			))}
+			<span className="absolute bottom-4 flex">
+				{items.map((_, index) => (
+					<button
+						onClick={() => setSlide(index)}
+						className={`${
+							slide === index ? `bg-gray-800` : `bg-gray-300`
+						} mx-1 my-0 h-2 w-2 cursor-pointer rounded-full border-none shadow-sm outline-none drop-shadow-sm`}
+						key={index}
+					/>
+				))}
+			</span>
 		</div>
 	);
 };
