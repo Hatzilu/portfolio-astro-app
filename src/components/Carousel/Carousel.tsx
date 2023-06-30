@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import type { Repository } from '../../types/github';
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill, BsEye, BsStar } from 'react-icons/bs';
-import { AiOutlineFork } from 'react-icons/ai';
-import { VscIssues } from 'react-icons/vsc';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
-
+import {
+	ArrowLeftCircleIcon,
+	EyeIcon,
+	StarIcon,
+	ExclamationCircleIcon,
+	ArrowRightCircleIcon,
+	ShareIcon,
+} from '@heroicons/react/24/outline';
 type Props = {
 	items: Repository[];
 };
@@ -65,7 +69,7 @@ const Carousel = ({ items }: Props) => {
 
 	return (
 		<div className="relative flex h-96 w-full items-center justify-center">
-			<BsArrowLeftCircleFill
+			<ArrowLeftCircleIcon
 				onClick={prevSlide}
 				className="absolute left-4 z-10 h-8 w-8 rounded-full text-black shadow-md drop-shadow-sm hover:cursor-pointer"
 			/>
@@ -91,22 +95,22 @@ const Carousel = ({ items }: Props) => {
 							<p className="text-sm font-light">{repo.description}</p>
 							<ul className="flex list-none flex-col gap-2">
 								<li className="flex items-center gap-2">
-									<BsStar size="16px" />
+									<StarIcon height="16px" width="16px" />
 									<p className="text-sm font-light">Stars:</p>
 									<p className="text-sm">{repo.stargazers_count}</p>
 								</li>
 								<li className="flex items-center gap-2">
-									<BsEye size="16px" />
+									<EyeIcon height="16px" width="16px" />
 									<p className="text-sm font-light">Watches:</p>
 									<p className="text-sm">{repo.watchers_count}</p>
 								</li>
 								<li className="flex items-center gap-2">
-									<AiOutlineFork size="16px" />
+									<ShareIcon height="16px" width="16px" />
 									<p className="text-sm font-light">Forks:</p>
 									<p className="text-sm">{repo.forks_count}</p>
 								</li>
 								<li className="flex items-center gap-2">
-									<VscIssues size="16px" />
+									<ExclamationCircleIcon height="16px" width="16px" />
 									<p className="text-sm font-light">Issues:</p>
 									<p className="text-sm">{repo.open_issues_count}</p>
 								</li>
@@ -115,7 +119,7 @@ const Carousel = ({ items }: Props) => {
 					</AnimatePresence>
 				),
 			)}
-			<BsArrowRightCircleFill
+			<ArrowRightCircleIcon
 				onClick={nextSlide}
 				className="absolute right-4 h-8 w-8 rounded-full text-black shadow-md drop-shadow-sm hover:cursor-pointer"
 			/>
