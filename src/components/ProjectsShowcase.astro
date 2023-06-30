@@ -2,16 +2,18 @@
 import type { Repository } from '../types/github';
 import Card from './Card.astro';
 import '../styles/main.css';
+import Carousel from '../components/Carousel/Carousel';
 
 const res = await fetch(`https://api.github.com/users/${import.meta.env.GITHUB_USERNAME}/repos`);
 
 const data: Repository[] = await res.json();
-console.log(data[0]);
+
+const normalizedData = data.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 15);
 ---
 
-<Card
-	class="z-10 flex flex-col gap-1  bg-white p-10  text-xl font-bold text-zinc-900"
->
-	<h2>Here are some projects i made</h2>
-	{data.map((project) => <Card>{project.name}</Card>)}
+<Card>
+    <div class="flex flex-col gap-1 justify-center">
+        <h2 class="text-lg">Here are some projects i made</h2>
+        <Carousel client:idle items={normalizedData} />
+    </div>
 </Card>
