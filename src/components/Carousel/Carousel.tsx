@@ -10,7 +10,6 @@ import {
 } from 'react-icons/bs';
 import { AiOutlineFork } from 'react-icons/ai';
 import { VscIssues } from 'react-icons/vsc';
-import ForkIndicator from '../ForkIndicator/ForkIndicator';
 
 type Props = {
 	items: Repository[];
