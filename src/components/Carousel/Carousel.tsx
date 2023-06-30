@@ -8,19 +8,15 @@ type Props = {
 
 const Carousel = ({ items }: Props) => {
 	const [slide, setSlide] = useState(0);
-	console.log({ slide });
 
 	const nextSlide = () =>
 		setSlide((s) => {
-			console.log(s);
 			if (s + 1 > items.length) return s;
 			return s + 1;
 		});
 
 	const prevSlide = () =>
 		setSlide((s) => {
-			console.log(s);
-
 			if (s - 1 < 0) return s;
 			return s - 1;
 		});
