@@ -1,6 +1,16 @@
 import { useState } from 'react';
 import type { Repository } from '../../types/github';
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill, BsEye, BsStar } from 'react-icons/bs';
+import {
+	BsArrowLeftCircleFill,
+	BsArrowRightCircleFill,
+	BsEye,
+	BsInfoCircle,
+	BsSignMergeLeft,
+	BsStar,
+} from 'react-icons/bs';
+import { AiOutlineFork } from 'react-icons/ai';
+import { VscIssues } from 'react-icons/vsc';
+import ForkIndicator from '../ForkIndicator/ForkIndicator';
 
 type Props = {
 	items: Repository[];
@@ -9,17 +19,23 @@ type Props = {
 const Carousel = ({ items }: Props) => {
 	const [slide, setSlide] = useState(0);
 
-	const nextSlide = () =>
+	const nextSlide = (e: React.MouseEvent) => {
+		// stop propagation to stop the user from accidentally selecting the text in the card if clicking too fast
+		e.stopPropagation();
 		setSlide((s) => {
 			if (s + 1 >= items.length) return 0;
 			return s + 1;
 		});
+	};
 
-	const prevSlide = () =>
+	const prevSlide = (e: React.MouseEvent) => {
+		// stop propagation to stop the user from accidentally selecting the text in the card if clicking too fast
+		e.stopPropagation();
 		setSlide((s) => {
 			if (s - 1 < 0) return items.length - 1;
 			return s - 1;
 		});
+	};
 
 	return (
 		<div className="relative flex h-96 w-full items-center justify-center">
@@ -27,30 +43,40 @@ const Carousel = ({ items }: Props) => {
 				onClick={prevSlide}
 				className="absolute left-4 h-8 w-8 rounded-full text-black shadow-md drop-shadow-sm hover:cursor-pointer"
 			/>
-			{items.map((project, index) =>
+			{items.map((repo, index) =>
 				slide !== index ? null : (
 					<a
-						href={project.html_url}
+						href={repo.html_url}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="h-full w-full gap-2 rounded-lg p-5 shadow-md"
-						key={project.id}
+						className="h-full w-full gap-3 rounded-lg bg-violet-50 p-6 px-14"
+						key={repo.id}
 					>
-						<div className="flex items-center justify-between">
-							<h6 className="text-base">{project.name}</h6>
-							<img src={project.owner.avatar_url} className="h-8 w-8 rounded-full" />
+						<div className="flex items-start justify-between">
+							<h6 className="text-xl">{repo.name}</h6>
+							<img src={repo.owner.avatar_url} className="h-8 w-8 rounded-full" />
 						</div>
-						<p className="text-sm font-light">{project.description}</p>
+						<p className="text-sm font-light">{repo.description}</p>
 						<ul className="flex list-none flex-col gap-2">
 							<li className="flex items-center gap-2">
 								<BsStar size="16px" />
 								<p className="text-sm font-light">Stars:</p>
-								<p className="text-sm">{project.stargazers_count}</p>
+								<p className="text-sm">{repo.stargazers_count}</p>
 							</li>
 							<li className="flex items-center gap-2">
 								<BsEye size="16px" />
 								<p className="text-sm font-light">Watches:</p>
-								<p className="text-sm">{project.watchers_count}</p>
+								<p className="text-sm">{repo.watchers_count}</p>
+							</li>
+							<li className="flex items-center gap-2">
+								<AiOutlineFork size="16px" />
+								<p className="text-sm font-light">Forks:</p>
+								<p className="text-sm">{repo.forks_count}</p>
+							</li>
+							<li className="flex items-center gap-2">
+								<VscIssues size="16px" />
+								<p className="text-sm font-light">Issues:</p>
+								<p className="text-sm">{repo.open_issues_count}</p>
 							</li>
 						</ul>
 					</a>
