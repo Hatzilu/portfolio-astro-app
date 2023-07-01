@@ -1,26 +1,58 @@
 import { createRoot } from 'react-dom/client';
 import React, { Suspense, useRef, useState } from 'react';
 import { Canvas, ThreeElements, useFrame, useLoader } from '@react-three/fiber';
-import type { BufferGeometry, Material, Mesh, NormalBufferAttributes } from 'three';
+import {
+	AnimationMixer,
+	AxesHelper,
+	type BufferGeometry,
+	type Material,
+	type Mesh,
+	type NormalBufferAttributes,
+} from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from '@react-three/drei/core';
 
 const Cat = ({ props }: any) => {
+	const [active, setActive] = useState(false);
+
+	const toggleActive = () => setActive((a) => !a);
+
 	return (
-		<Canvas camera={{ fov: 70, position: [0, 0, 6] }}>
+		<Canvas onClick={toggleActive} camera={{ fov: 10, position: [6, 2.5, 12] }}>
 			<Suspense fallback={null}>
 				<ambientLight />
 				<pointLight position={[10, 10, 10]} />
-				<Box position={[-0.2, -4.5, 4]} />
+				<Box active={active} position={[0, 0, 0]} />
 			</Suspense>
 		</Canvas>
 	);
 };
 
-function Box(props: ThreeElements['mesh']) {
-	const gltf = useLoader(GLTFLoader, 'src/assets/cat.glb');
+function Box(props: ThreeElements['mesh'] & { active: boolean }) {
+	const model = useLoader(GLTFLoader, 'src/assets/cat2.glb');
 	// const meshRef = useRef<THREE.Mesh>(null!);
 	const [hovered, setHover] = useState(false);
-	const [active, setActive] = useState(false);
+
+	const mixer = new AnimationMixer(model.scene);
+	if (model.animations.length && props.active) {
+		model.animations.forEach((clip) => {
+			const action = mixer.clipAction(clip);
+			action.play();
+		});
+	}
+	console.log(props.active);
+
+	useFrame((state, delta) => {
+		console.log(mixer.time);
+		if (props.active === false) {
+			// model.animations.forEach((clip) => {
+			// 	const action = mixer.clipAction(clip);
+			// 	action.reset();
+			// });
+			mixer?.setTime(0);
+		}
+		mixer?.update(delta);
+	});
 	// useFrame((state, delta) => (meshRef.current.rotation.y += delta));
 	return (
 		// <mesh
@@ -35,7 +67,8 @@ function Box(props: ThreeElements['mesh']) {
 		// 	<meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
 		// </mesh>
 		<>
-			<primitive object={gltf.scene} scale={1} position={props.position} />
+			<OrbitControls />
+			<primitive object={model.scene} scale={1} position={props.position} />
 		</>
 	);
 }
