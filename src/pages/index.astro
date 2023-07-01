@@ -1,5 +1,6 @@
 ---
 import Card from '../components/Card.astro';
+import Cat from '../components/Cat/Cat';
 import ProjectsShowcase from '../components/ProjectsShowcase.astro';
 import AnimatedBlob from '../components/AnimatedBlob/AnimatedBlob.astro';
 import '../styles/main.css';
@@ -19,6 +20,7 @@ import '../styles/main.css';
 		<div class="gap-5 flex min-h-screen items-center justify-center bg-gray-50 p-16">
 			<div class="relative w-full max-w-lg">
 				<AnimatedBlob />
+				<Cat client:only="react" />
 				<div class="flex flex-col gap-5">
 					<div class="flex flex-col w-96">
 						<Card>

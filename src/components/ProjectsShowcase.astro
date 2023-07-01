@@ -4,9 +4,10 @@ import Card from './Card.astro';
 import '../styles/main.css';
 import Carousel from '../components/Carousel/Carousel';
 
-const res = await fetch(`https://api.github.com/users/Kapeet/repos?type=public&per_page=100`);
+// const res = await fetch(`https://api.github.com/users/Kapeet/repos?type=public&per_page=100`);
 
-const data: Repository[] = await res.json();
+const data: Repository[] = [];
+// const data: Repository[] = await res.json();
 
 const normalizedData = data
     .filter((a) => a.fork === false)
