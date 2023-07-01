@@ -8,10 +8,12 @@ import '../styles/main.css';
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/portfolio-astro-app/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta name="description" content="My portfolio app" />
+		<meta property="og:image" content={`${import.meta.env.BASE_URL}/kapeet-pfp.png`} />
+		<title>Kapeet</title>
 	</head>
 	<body class="font-poppins">
 		<div class="gap-5 flex min-h-screen items-center justify-center bg-gray-50 p-16">
@@ -20,7 +22,7 @@ import '../styles/main.css';
 				<div class="flex flex-col gap-5">
 					<div class="flex flex-col w-96">
 						<Card>
-							<h1 class="text-2xl">Hi, i'm {import.meta.env.AUTHOR_FIRST_NAME}.</h1>
+							<h1 class="text-2xl">Hi, i'm Kapeet.</h1>
 							<h1 class="text-2xl">I like to build things.</h1>
 						</Card>
 					</div>
