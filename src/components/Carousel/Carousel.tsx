@@ -47,7 +47,6 @@ const Carousel = ({ items }: Props) => {
 	const previousSlideValue = slideTuple[0];
 
 	const direction = getDirection(slide, previousSlideValue, items.length);
-	console.log(direction);
 
 	const nextSlide = (e: React.MouseEvent) => {
 		// stop propagation to stop the user from accidentally selecting the text in the card if clicking too fast
